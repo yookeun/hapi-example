@@ -1,8 +1,15 @@
 'use strict';
 
 const Recipes = require('./handlers/recipes');
+const Pages = require('./handlers/pages');
+const Assets = require('./handlers/assets');
 
 module.exports = [
+  {
+    method: 'GET',
+    path: '/{param*}',
+    handler: Assets.servePublicDirectory
+  },
   {
     method: 'GET',
     path: '/api/recipes',
@@ -16,9 +23,6 @@ module.exports = [
   {
     method: 'POST',
     path: '/api/recipes',
-    config: {
-      auth: 'api'
-    },
     handler: Recipes.create
   }
 ]
