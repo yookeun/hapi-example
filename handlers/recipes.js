@@ -13,7 +13,7 @@ exports.find = function(request, reply) {
     if (err) {
         throw err;
     }
-    reply(results);
+    reply.view('index',{recipes: results});
   });
 };
 
@@ -23,7 +23,7 @@ exports.findOne = function(request, reply) {
       throw err;
     }
     if (typeof result !== 'undefined') {
-      return reply(result);
+      return reply.view('recipe', {recipe: result});
     }
     return reply('Not found').code(404);
   });
