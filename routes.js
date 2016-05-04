@@ -9,8 +9,11 @@ module.exports = [
   {
     method: 'GET',
     path: '/',
+    handler: Pages.home
+  },{
+    method: 'GET',
+    path: '/api/recipes',
     handler: Recipes.find
-    //handler: Pages.home
   },{
     method: 'GET',
     path: '/{param*}',
@@ -22,6 +25,9 @@ module.exports = [
   },{
     method: 'POST',
     path: '/api/recipes',
+    config: {
+      auth: 'api' //bearer-access-token사용
+    },
     handler: Recipes.create
   },{
     method: 'GET',

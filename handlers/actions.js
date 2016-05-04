@@ -8,7 +8,7 @@ exports.login = function(request, reply) {
     if (err) {
       throw err;
     }
-    
+
     const user = result;
     if (!user) {
       return reply('Not authorized').code(401);
