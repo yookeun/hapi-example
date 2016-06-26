@@ -48,7 +48,38 @@ module.exports = [
   {
     method: 'POST',
     path: '/login',
+    handler: Pages.loginPost
+  },
+  {
+    method: 'POST',
+    path: '/api/login',
+    config: {
+      payload: {
+        output:'data',
+        parse: true
+      }
+    },
     handler: Actions.login
+  },
+  {
+    method: 'GET',
+    path: '/logout',
+    handler: Pages.logout
+  },
+  {
+    method: 'GET',
+    path: '/create',
+    handler: Pages.createRecipe,
+    config: {
+      auth: {
+        mode: 'required'
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/create',
+    handler: Pages.createRecipePost
   }
 
-]
+];

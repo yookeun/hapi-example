@@ -9,6 +9,7 @@ const Cookie = require('hapi-auth-cookie');
 const Token = require('hapi-auth-bearer-token');
 const server = new Hapi.Server();
 
+
 const validateFunc = function(token, callback) {
   db.get('SELECT * FROM users WHERE token = ?', [token], (err, result) => {
     if (err) {
@@ -24,6 +25,7 @@ const validateFunc = function(token, callback) {
     });
   });
 };
+
 
 var plugins = [Inert, Vision, Token, Cookie];
 
@@ -53,6 +55,29 @@ server.register(plugins, (err) => {
     isSecure: false       //hapi-auth-cookie는 TLS/SSL을 디폴트로 지원한다. 개발시에는 false로 한다.
   });
   server.route(require('./routes'));
+
+/*
+  server.route({
+    method: 'GET',
+    path: '/setName/{name}',
+    handler: function(request, reply) {
+      request.cookieAuth.set({
+        name: encodeURIComponent(request.params.name)
+      });
+      reply('Name set!');
+    }
+  });
+
+  server.route({
+    method: 'GET',
+    path: '/getName',
+    handler: function(request, reply) {
+      const name = request.auth.credentials.name;
+      reply('Hello there '+ name);
+    }
+  });
+*/
+
   server.views({
     engines: {
       html: require('handlebars')

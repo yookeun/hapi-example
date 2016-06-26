@@ -1,6 +1,6 @@
 'use strict'
 
-const Bcrypt = require('bcrypt-nodejs')
+const Bcrypt = require('bcrypt-nodejs');
 
 exports.login = function(request, reply) {
   const sql = 'SELECT * FROM users WHERE username = ?'
@@ -19,11 +19,14 @@ exports.login = function(request, reply) {
         throw err;
       }
       if (!res) {
-        //return reply('Not authorized').code(401);
-         return reply.redirect('/login');
+        return reply('Not authorized').code(401);
       }
-      request.cookieAuth.set({token: user.token});
-      reply.redirect('http://localhost:4000/');
+      console.log("user.id = " + user.id);
+      reply({
+        token: user.token,
+        id: user.id
+      });
     });
   });
 };
+
